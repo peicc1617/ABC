@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>创新方法工作平台</title>
+    <!--添加页面框架-->
+    <link rel="import" id="frame" href="/webresources/common/html/appFrame.html">
+    <script type="text/javascript" src="js/buttonAction.js"></script>
+    <script type="text/javascript" src="./js/PQanalysis.js"></script>
+    <script type="text/javascript" src="js/common/spin.min.js"></script>
+    <script type="text/javascript" src="js/common/echarts/build/dist/echarts.js"></script>
+    <link rel="stylesheet" href="/webresources/bootstrap/bootstrap-table/bootstrap-table.css">
+    <script type="text/javascript" src="/webresources/ace-master/assets/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/webresources/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+    <script type="text/javascript"
+            src="/webresources/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <!--静态资源中已经添加的css和js-->
+    <!--<link rel="stylesheet" href="../../ace-master/assets/css/bootstrap.min.css" />-->
+    <!--<link rel="stylesheet" href="../../ace-master/assets/css/ace.min.css" />-->
+    <!--<link rel="stylesheet" href="../../ace-master/assets/font-awesome/4.5.0/css/font-awesome.min.css" />-->
+    <!--<link rel="stylesheet" href="../../ace-master/assets/css/ace-rtl.min.css" />-->
+    <!--<link rel="stylesheet" href="../../ace-master/assets/css/ace-skins.min.css" />-->
+    <!--<link rel="stylesheet" href="../../ace-master/assets/css/fonts.googleapis.com.css" />-->
+    <!--<link rel="stylesheet" href="../../common/css/Extra.css" />-->
+    <!--<link rel="stylesheet" href="../../common/css/searchStyle.css" />-->
+    <!--<script type="text/javascript" src="../../ace-master/assets/js/ace-extra.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../ace-master/assets/js/jquery-2.1.4.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../ace-master/assets/js/ace.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../ace-master/assets/js/bootstrap.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../ace-master/assets/js/jquery.dataTables.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../ace-master/assets/js/jquery.dataTables.bootstrap.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../ace-master/assets/js/jquery-ui.custom.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../ace-master/assets/js/jquery.ui.touch-punch.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../ace-master/assets/js/ace-elements.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../ace-master/assets/js/jquery.mobile.custom.min.js"></script>-->
+    <!--<script type="text/javascript" src="../../common/js/userLogin.js"></script>-->
+    <!--<script type="text/javascript" src="../../common/js/fuzzySearch.js"></script>-->
+    <!--<script type="text/javascript" src="../../common/js/table.js"></script>-->
+    <!--<script type="text/javascript" src="../../common/js/wordEdit.js"></script>-->
+</head>
+<body class="no-skin">
+<div id="mainFunctionHtml">
+    <div id="myCustomLi">
+        <li class="active">
+            <a data-toggle="tab" href="#inputPQ">
+                <i class="green ace-icon fa fa-desktop bigger-120"></i>
+                产品产量表
+            </a>
+        </li>
+        <li class="">
+            <a data-toggle="tab" href="#analysisResult" >
+                <i class="purple ace-icon fa fa-pencil-square-o bigger-120"></i>
+                P-Q分析
+            </a>
+        </li>
+    </div>
+    <div id="myCustomTab">
+        <div id="inputPQ" class="tab-pane active">
+            <!-- <table style="margin-top: 10px;">
+                <tr>
+                    <td>
+                        <button style="width: 150px;" class="btn btn-xs btn-primary" onclick="downloadexcel()">
+                            <span class="bigger-110">
+                                <i class="fa fa-cloud-download"></i>
+                                &nbsp;&nbsp;标准excel模板
+                            </span>
+                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>导入产品产量信息：</td>
+                    <td>
+                        <form action="jsp/PQanalysis/pqinfo_upLoadFile" method="post" enctype="multipart/form-data"
+                            target="iframeInfo" onsubmit="return checkfile()">
+                            <input id="pq-excel" accept="application/vnd.ms-excel" type="file" name='file' value=""
+                                style="float: left; width: 190px" />
+                            <input type="submit" id="import_button" class="btn btn-xs btn-primary" onclick="openwin()"
+                                value="导入" />
+                        </form> <iframe name="iframeInfo" id="iframeInfo" style="display: none"></iframe>
+                    </td>
+                </tr>
+                <tr>
+                    <div id="spindiv"></div>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; horizon-align: middle;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                </tr>
+            </table> -->
+            <!-- <div class="table-header" style="">
+                <span class="ssl_objname_text">P-Q分析表</span>
+            </div> -->
+            <div id="toolbar" class="btn-group btn-group-sm">
+                <a class="btn btn-info" onclick="" data-toggle="modal" data-target="#adddatainfo">
+                    <i class="ace-icon glyphicon glyphicon-plus"></i>
+                    添加
+                </a>
+                <button type="button" class="btn btn-danger" style="margin-right: 40px"
+                        onclick="deleterow()">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    删除
+                </button>
+                <button type="button" class="btn btn-info" onclick="downloadexcel()">
+                    <i class="glyphicon glyphicon-download"> 文件模板下载</i>
+                </button>
+                <button type="button" class="btn btn-info" data-toggle="modal"
+                        data-target="#addselectfilemodal">
+                    <i class="glyphicon glyphicon-import"> 文件导入</i>
+                </button>
+            </div>
+            <table id="myBootstrapTtable" data-toggle="table" data-search="true" data-show-refresh="true"
+                   data-show-toggle="true" data-toolbar="#toolbar" data-pagination="true"
+                   data-side-pagination="client">
+                <thead>
+                <tr>
+                    <th data-field="state" data-checkbox="true"></th>
+                    <th data-field="procedureIdForDelete" data-visible="false">procedureId</th>
+                    <th data-field="procedureId" data-formatter="generateId">序号</th>
+                    <th data-field="productionName">产品名称</th>
+                    <th data-field="quantity">产量</th>
+                    <th data-field="sum">总产量</th>
+                    <th data-field="accumQ">累计产量</th>
+                    <th data-field="percent">百分比</th>
+                    <th data-field="accumPercent">累计百分比</th>
+                    <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">编辑</th>
+                </tr>
+                </thead>
+            </table>
+            <br>
+        </div>
+        <div id="analysisResult" class="tab-pane ">
+            <div class="btn-group btn-group-sm">
+                <!-- 提交按钮 -->
+                <a class="btn btn-info" style="" onclick="pqAnalysis()">
+                    <i class="fa fa-align-justify"></i>
+                    &nbsp;&nbsp;P-Q分析
+                </a>
+                &nbsp;
+                <a class="btn btn-info" style="" onclick="saveFig()">
+                    <i class="ace-icon fa fa-arrow-circle-o-down"></i>
+                    导出图片
+                </a>
+                &nbsp;
+                <a id="saveProject" class='btn btn-info' onclick='saveResultInfo()'>
+						<span>
+							<i class='ace-icon fa fa-save'></i>
+							保存
+						</span>
+                </a>
+                <button id="saveAsProject" type="button" class="btn btn-info" data-toggle="modal" data-target="#saveAsModal">
+                    <span class="glyphicon glyphicon-log-in"></span>另存
+                </button>
+            </div>
+            <div id="pqCharts" style="height: 430px; width: 100%;"></div>
+            <br>
+        </div>
+    </div>
+    <!--帮助页面-->
+    <div id="helpHtml">
+        <div class="page-header">
+            <h1>P-Q分析App使用说明</h1>
+        </div>
+        <div class="alert alert-block alert-success" id="appHelp">
+            <div class="helpClass">
+                <p class="helpP">
+                    <i class="ace-icon fa fa-check green"></i>
+                    欢迎使用<strong class="green">P-Q分析App</strong>, 使用流程如下：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;1、首先进入项目管理页面，新建项目<br> <img src="files/img/help1.png" height="300"
+                                                                       width="530" /><br> &nbsp;&nbsp;&nbsp;&nbsp;2、其次，添加相关数据<br> <img
+                        src="files/img/help2.png" height="300" width="530" /><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;3、P-Q分析结果分析<br> <img src="files/img/help3.png" height="300"
+                                                                 width="530" /><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;4、报告编辑<br> <img src="files/img/help4.png" height="300"
+                                                            width="530" /><br>
+                <p>
+            </div>
+        </div>
+    </div>
+    <!-- 添加modal对话框 -->
+    <div class="modal fade" id="adddatainfo" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">添加产品及产量数据</h4>
+                </div>
+                <div class="modal-body" style="margin: auto;">
+                    <div id="spindivupdate"></div>
+                    <form id="addprocesspop">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>产品名称：</td>
+                                <td><input type="text" id="indexName_a" name="productionName" size="24"></input></td>
+                            </tr>
+                            <tr>
+                                <td>产量(台)：</td>
+                                <td><input type="text" id="indexValue_a" name="quantity" size="24"></input></td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br>
+                    <div class="modal-footer">
+                        <a class="btn btn-sm btn-info" style="" onclick="addItem()">
+                            <i class="ace-icon glyphicon glyphicon-ok bigger-120"></i>
+                            提交
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="updatedatainfo" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">产品产量数据</h4>
+                </div>
+                <div class="modal-body" style="margin: auto;">
+                    <div id="spindivupdate"></div>
+                    <form id="updateprocesspop">
+                        <table style="width: 100%;">
+                            <input type="hidden" id="procedureId_u" name="procedureId" size="24"></input>
+                            <tr>
+                                <td>产品名称：</td>
+                                <td><input type="text" id="indexName_u" name="productionName" size="24"></input></td>
+                            </tr>
+                            <tr>
+                                <td>产量(台)：</td>
+                                <td><input type="text" id="indexValue_u" name="quantity" size="24"></input></td>
+                            </tr>
+                        </table>
+                        <div class="modal-footer">
+                            <a class="btn btn-sm btn-info" style="" onclick="editItem()">
+                                <i class="ace-icon glyphicon glyphicon-ok bigger-120"></i>
+                                提交
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addselectfilemodal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">产品产量数据</h4>
+                </div>
+                <div class="modal-body" style="margin: auto;">
+                    <table style="margin-top: 10px; margin-left: 40px;">
+                        <tr>
+                            <td>导入文件：</td>
+
+                            <td>
+                                <!-- Nutz.Mvc 内置了一个专门处理文件上传的适配器 org.nutz.mvc.upload.UploadAdaptor -->
+                                <!--只要 onclick 未 return false 那么就继续执行 onsubmit-->
+                                <!--只要 onsubmit 未return false 那么表单就被提交出去了-->
+                                <form action="jsp/PQanalysis/pqinfo_upLoadFile" method="post" enctype="multipart/form-data"
+                                      target="iframeInfo" onsubmit="return checkfile()">
+                                    <input id="pq-excel" accept="application/vnd.ms-excel" type="file" name='file' value=""
+                                           style="float: left; width: 190px" />
+                                    <input type="submit" id="import_button" class="btn btn-xs btn-primary" onclick="openwin()"
+                                           value="导入" />
+                                </form> <iframe name="iframeInfo" id="iframeInfo" style="display: none"></iframe>
+                            </td>
+                        </tr>
+                        <tr>
+                            <div id="spindiv"></div>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center; horizon-align: middle;">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="saveAsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="newProjectModalTitle">
+                        新建项目
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <!-- <%--输入框组--%> -->
+                    <div class="input-group">
+                        <span class="input-group-addon">项目名：</span>
+                        <input type="text" class="form-control" placeholder="请输入项目名称" id="saveAsProjectNameModal">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">备 注：</span>
+                        <input type="text" class="form-control" placeholder="请输入备注" id="saveAsProjectRemarkModal">
+                    </div>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="saveAsProject()" id="saveAsProButton">
+                        确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

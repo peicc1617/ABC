@@ -1,0 +1,30 @@
+
+.dataTables_length{
+	float:left;
+}
+
+.sample-table-1_filter{
+	float:left;
+}
+#sample-table-1_paginate{
+	font-size:14px;
+}
+
+.dataTables_info{
+	float:left;
+}
+#sample-table-1_paginate{
+	float:right;
+}
+#sample-table-1_paginate a{
+	width:20px;
+	margin-left:2px;
+	background-color:#6fb3e0;
+	color:white;
+	text-decoration:none;
+	cursor:pointer;
+	display:block;
+	float:left;
+	text-align:center;
+	
+}
