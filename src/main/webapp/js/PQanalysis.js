@@ -1,4 +1,4 @@
-$(function() {
+/*$(function() {
     // 用于上传时显示提示
     var opts = {
         lines : 12, // 花瓣数目
@@ -24,7 +24,7 @@ $(function() {
         // offset left for progress tracker
     };
     spinner = new Spinner(opts);
-});
+});*/
 function help() {
     $("#help").modal();
 }
@@ -147,7 +147,6 @@ function showPareto(xAxisData,yAxisData,yPercent,maxData) {
         }
     });
     // 使用
-    alert("使用图表");
     require(
         [
             'echarts',
@@ -226,8 +225,28 @@ function showPareto(xAxisData,yAxisData,yPercent,maxData) {
                 series: [
                     {
                         name:'产量',
-                        type:'bar',
-                        data:yAxisData
+                        type:'line',
+                        data:yAxisData,
+                        markLine: {
+                            data: [
+                                {type: 'min', name: '平均值'},
+
+
+                            ]
+                        },
+                        markArea:{
+                            data: [
+                                [
+                                    {
+                                        name: '所有数据范围区间',
+                                        yAxix: yAxisData[0]
+                                    },
+                                    {
+                                        yAxix:yAxisData[1]
+                                    }
+                                ]
+                            ]
+                        }
                     },
                     {
                         name:'累计百分比',
@@ -358,36 +377,7 @@ function getTabdata(){
     return datalist;
 }
 function saveResultInfo(){
-    if(projectId==0){
-        alert("请新建项目，再保存数据！");
-    }else{
-        var datas=$('#myBootstrapTtable').bootstrapTable('getData');
-        //先生成word内容，然后保存
-        $.ajax({
-            url:"/projectManager/api/v1/project",
-            type:"put",
-            //群组ID
-            data:{
-                id:projectId,
-                projectName:projectName,
-                memo:'',
-                appResult:'',
-                tempProjectID:"",
-                appContent:JSON.stringify(datas),
-                reservation:""
-            },
-            success:function(result){
-                if(result.state){
-                    //请求正确
-                    alert("保存成功！");
-                    console.log(result.content)
-                }else{
-                    //请求错误
-                    console.log(result.error)
-                }
-            }
-        })
-    }
+
 }
 Date.prototype.format = function(fmt) {
     var o = {

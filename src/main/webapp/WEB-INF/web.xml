@@ -1,7 +1,115 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!--
+  - This is the Cocoon web-app configurations file
+  -
+  - $Id$
+  -->
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <!--填写项目名，比方说鱼骨图，直方图等-->
+  <display-name>ABC分类法</display-name>
+  <!--填写属性标签，为集成与融合做准备-->
+  <context-param>
+    <param-name>webAppAttributeLabel</param-name>
+    <param-value>ABC分类法</param-value>
+  </context-param>
+  <!--功能描述，描述软件的主要功能-->
+  <context-param>
+    <param-name>webAppDescription</param-name>
+    <param-value>这是ABC分类法WebApp，是储存管理中常用的分析方法</param-value>
+  </context-param>
+  <!--webApp图标，从静态资源中选择图片，将图片单独发给我-->
+  <context-param>
+    <param-name>webAppIcon</param-name>
+    <param-value>创新方法管理平台.png</param-value>
+  </context-param>
+  <!--webApp版本号，当前软件版本迭代次数-->
+  <context-param>
+    <param-name>webAppVersion</param-name>
+    <param-value>v0.1</param-value>
+  </context-param>
+  <!--webApp分类，从知识工程、TRIZ、质量分析、企业管理、产品设计、创新思维、其他选择一项-->
+  <context-param>
+    <param-name>webAppCategory</param-name>
+    <param-value>其他工程</param-value>
+  </context-param>
+
+  <!-- Servlet Filters ================================================ -->
+
+  <!--
+    - Declare a filter for multipart MIME handling
+    -->
+
+
+  <!--
+    - Declare a filter for debugging incoming request
+    -->
+
+
+  <!-- Filter mappings ================================================ -->
+
+  <!--
+    - Use the Cocoon multipart filter together with the Cocoon demo webapp
+    -->
+
+
+  <!--
+    - Use the Cocoon debug filter together with the Cocoon demo webapp
+  <filter-mapping>
+    <filter-name>CocoonDebugFilter</filter-name>
+    <servlet-name>Cocoon</servlet-name>
+  </filter-mapping>
+    -->
+
+  <!-- Servlet Context Listener ======================================= -->
+
+  <!--
+    - Declare Spring context listener which sets up the Spring Application Context
+    - containing all Cocoon components (and user defined beans as well).
+    -->
+
+
+  <!--
+    - Declare Spring request listener which sets up the required RequestAttributes
+    - to support Springs and Cocoon custom bean scopes like the request scope or the
+    - session scope.
+    -->
+
+
+  <!-- Servlet Configuration ========================================== -->
+
+  <!--
+    - Servlet that dispatches requests to the Spring managed block servlets
+    -->
+
+
+  <!-- URL space mappings ============================================= -->
+
+  <!--
+    - Cocoon handles all the URL space assigned to the webapp using its sitemap.
+    - It is recommended to leave it unchanged. Under some circumstances though
+    - (like integration with proprietary webapps or servlets) you might have
+    - to change this parameter.
+    -->
+
+
 </web-app>

@@ -1,7 +1,7 @@
 var projectId = 0;//项目Id
 var projectName;//项目名
 var appResult = null;//word报告
-var appNameChinese = 'P-Q分析';//app中文名（必填）
+var appNameChinese = 'ABC分类法';//app中文名（必填）
 var USER_NAME = '';//当前登录用户名
 
 // 添加项目后，自定义操作
@@ -51,25 +51,13 @@ function removeSelfDefine(result) {
 
 //定制初始化内容
 function setCustomContext() {
-	 var image1 = new Image();
-	    if(picInfo){
-	    	image1.src =picInfo;
-	    }
-    // canvas图片获取方式
-//    var img = $("#canvas")[0];  //选择页面中的img元素
-//    var image = new Image();
-//    if (img != null) {
-//        image.src = img.toDataURL("image/png");
-//    }
-//    var img1 = image;
-//    // 其他示例
-//    var img2 = $("#image2Id");  //选择页面中的img元素
-//    var wordImgArr = [img1, img2];//定义图片数组
+    var imageInstance = new Image();
+    imageInstance.src=image;
     var customText = {//word编辑区自定义文本内容
-        'title': "<h2>P-Q分析App结果 </h2>",
-        'chap1': "<h3>导入产品产量数据分析如下图所示：</h3>",
-        'img1': image1,
-        'chap2': "<h3>选择产品产量较多的产品作为分析对象。</h3>"
+        'title': "<h2>ABC分析App结果 </h2>",
+        'chap1': "<h3>导入产品数量数据分析如下图所示：</h3>",
+        'img1': imageInstance,
+        'chap2': "<h3>其中A类如图中灰色区域所示，B类如图中紫色区域所示，C如图中粉色区域所示。</h3>"
     };
     for (var variable in customText) {//遍历自定义文本对象
         $("#WYeditor").append(customText[variable]);//插入元素
@@ -158,5 +146,38 @@ function saveAsProject() {
         });
         $('#saveAsModal').modal('hide');//隐藏模态框
         // 在前台添加表格
+    }
+}
+//保存项目
+function saveProject() {
+    if(projectId==0){
+        alert("请新建项目，再保存数据！");
+    }else{
+        var datas=$('#myBootstrapTtable').bootstrapTable('getData');
+        //先生成word内容，然后保存
+        $.ajax({
+            url:"/projectManager/api/v1/project",
+            type:"put",
+            //群组ID
+            data:{
+                id:projectId,
+                projectName:projectName,
+                memo:'',
+                appResult:'',
+                tempProjectID:"",
+                appContent:JSON.stringify(datas),
+                reservation:""
+            },
+            success:function(result){
+                if(result.state){
+                    //请求正确
+                    console.log("保存成功");
+                    console.log(result.content);
+                }else{
+                    //请求错误
+                    console.log(result.error)
+                }
+            }
+        })
     }
 }
